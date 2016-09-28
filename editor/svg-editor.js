@@ -97,7 +97,11 @@ TODOS
 				'ext-polygon.js',
 				'ext-star.js',
 				'ext-panning.js',
-				'ext-storage.js'
+				'ext-storage.js',
+				'ext-striveimportcollateral.js',
+				'ext-strivecontextpanel.js',
+				'ext-striveimagecontextpanel.js',
+				'ext-strivetextcontextpanel.js'
 			],
 			defaultConfig = {
 				// Todo: svgcanvas.js also sets and checks: show_outside_canvas, selectNew; add here?
@@ -116,7 +120,8 @@ TODOS
 				text: {
 					stroke_width: 0,
 					font_size: 24,
-					font_family: 'serif'
+					font_family: 'serif',
+					text_anchor: 'first'
 				},
 				initOpacity: 1,
 				colorPickerCSS: null, // Defaults to 'left' with a position equal to that of the fill_color or stroke_color element minus 140, and a 'bottom' equal to 40
@@ -152,7 +157,9 @@ TODOS
 				// EXTENSION-RELATED (STORAGE)
 				noStorageOnLoad: false, // Some interaction with ext-storage.js; prevent even the loading of previously saved local storage
 				forceStorage: false, // Some interaction with ext-storage.js; strongly discouraged from modification as it bypasses user privacy by preventing them from choosing whether to keep local storage or not
-				emptyStorageOnDecline: false // Used by ext-storage.js; empty any prior storage if the user declines to store
+				emptyStorageOnDecline: false, // Used by ext-storage.js; empty any prior storage if the user declines to store,
+				// striveAPIBaseUrl: 'http://strive-ci-master.ishisystems.com/api/v2/'
+				striveAPIBaseUrl: 'http://10.40.11.121:8081/'
 			},
 			/**
 			* LOCALE

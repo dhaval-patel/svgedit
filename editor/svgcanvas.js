@@ -167,7 +167,8 @@ $.extend(all_properties.text, {
 	fill: '#000000',
 	stroke_width: curConfig.text.stroke_width,
 	font_size: curConfig.text.font_size,
-	font_family: curConfig.text.font_family
+	font_family: curConfig.text.font_family,
+	text_anchor: curConfig.text.text_anchor || 'middle'
 });
 
 // Current shape style properties
@@ -1360,6 +1361,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					}
 				});
 				setHref(newImage, last_good_img_url);
+				setHref(newImage, last_good_img_url);
 				svgedit.utilities.preventClickDefault(newImage);
 				break;
 			case 'square':
@@ -1448,7 +1450,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 						'stroke-width': cur_text.stroke_width,
 						'font-size': cur_text.font_size,
 						'font-family': cur_text.font_family,
-						'text-anchor': 'middle',
+						'text-anchor': cur_text.text_anchor,
 						'xml:space': 'preserve',
 						opacity: cur_shape.opacity
 					}
@@ -5915,6 +5917,16 @@ this.setItalic = function(i) {
 // Returns the current font family
 this.getFontFamily = function() {
 	return cur_text.font_family;
+};
+
+this.getTextAnchor = function () {
+    return cur_text.text_anchor;
+};
+
+this.setTextAnchor = function (val) {
+    cur_text.text_anchor = val;
+    changeSelectedAttribute('text-anchor', val);
+    return this;
 };
 
 // Function: setFontFamily
