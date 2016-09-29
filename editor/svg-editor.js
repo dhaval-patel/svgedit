@@ -99,6 +99,7 @@ TODOS
 				'ext-panning.js',
 				'ext-storage.js',
 				'ext-striveimportcollateral.js',
+				'ext-strivesavecollateral.js',
 				'ext-strivecontextpanel.js',
 				'ext-striveimagecontextpanel.js',
 				'ext-strivetextcontextpanel.js'
@@ -129,7 +130,7 @@ TODOS
 				exportWindowType: 'new', // 'same' (todo: also support 'download')
 				wireframe: false,
 				showlayers: false,
-				no_save_warning: false,
+				no_save_warning: true,
 				// PATH CONFIGURATION
 				// The following path configuration items are disallowed in the URL (as should any future path configurations)
 				imgPath: 'images/',
@@ -155,11 +156,9 @@ TODOS
 				// EXTENSION-RELATED (GRID)
 				showGrid: false, // Set by ext-grid.js
 				// EXTENSION-RELATED (STORAGE)
-				noStorageOnLoad: false, // Some interaction with ext-storage.js; prevent even the loading of previously saved local storage
+				noStorageOnLoad: true, // Some interaction with ext-storage.js; prevent even the loading of previously saved local storage
 				forceStorage: false, // Some interaction with ext-storage.js; strongly discouraged from modification as it bypasses user privacy by preventing them from choosing whether to keep local storage or not
-				emptyStorageOnDecline: false, // Used by ext-storage.js; empty any prior storage if the user declines to store,
-				// striveAPIBaseUrl: 'http://strive-ci-master.ishisystems.com/api/v2/'
-				striveAPIBaseUrl: 'http://10.40.11.121:8081/'
+				emptyStorageOnDecline: false, // Used by ext-storage.js; empty any prior storage if the user declines to store
 			},
 			/**
 			* LOCALE
@@ -3580,6 +3579,7 @@ TODOS
 					svgCanvas.runExtensions('onNewDocument');
 				});
 			};
+
 
 			var clickBold = function() {
 				svgCanvas.setBold( !svgCanvas.getBold() );

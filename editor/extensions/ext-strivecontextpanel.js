@@ -1,6 +1,5 @@
 svgEditor.addExtension('striveContextPanel', function () {
-    var metaAPI =  svgEditor.curConfig.striveAPIBaseUrl + 'meta.json',						// change to actual meta url
-		fieldElement,
+    var fieldElement,
 		collateralTypes,
 		selectedElement,
 		fieldCustomAttribute = 'data-strive-collateral-field';
@@ -91,11 +90,13 @@ svgEditor.addExtension('striveContextPanel', function () {
 	}
 
 	var loadMeta = function () {
-		$.get(metaAPI, function (data) {
-			collateralTypes = data.results;
+		if(window.striveGetMetadata) {
+		    window.striveGetMetaData().then(function (data) {
+		        collateralTypes = data.results;
 
-			initializeControls();
-		});
+                initializeControls();
+		    });
+		}
 	};
 
 	var callback = function () {

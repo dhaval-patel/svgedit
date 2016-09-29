@@ -1,7 +1,6 @@
 svgEditor.addExtension('striveImportCollateral', function () {
 	var dialog,
 		templateUrl = svgEditor.curConfig.extPath + 'ext-striveImportCollateral.html',
-		collateralAPI = svgEditor.curConfig.striveAPIBaseUrl + 'collaterals.json',						// change to actual collateral url
 		selectedCollateral,
 		selectedCollateralContainer;
 
@@ -27,51 +26,53 @@ svgEditor.addExtension('striveImportCollateral', function () {
 			dialog.insertAfter('#svg_docprops');
 
 			// Fetch collaterals
-			$.get(collateralAPI, function (data) {
-				var collaterals = data.results;
+			if (window.striveGetCollateral) {
+                window.striveGetCollateral().then(function (data) {
+                    var collaterals = data.results;
 
-				var collateralsContainer = dialog.find('#strive_import_collateral_collaterals_container');
+                    var collateralsContainer = dialog.find('#strive_import_collateral_collaterals_container');
 
-				collaterals.forEach(function (collateral) {
-					// Create collateral container 
-					var collateralContainer = $('<div>')
-						.css({
-							display: 'inline-block',
-							textAlign: 'center',
-							padding: '10px',
-							margin: '10px',
-							border: '1px solid black',
-							borderRadius: '4px',
-							width: '200px'
-						})
-						.click(function () {
-							selectCollateral(collateral, $(this));
-						})
-						.dblclick(function () {
-							selectCollateral(collateral, $(this));
-							onOk();
-						});
+                    collaterals.forEach(function (collateral) {
+                        // Create collateral container
+                        var collateralContainer = $('<div>')
+                            .css({
+                                display: 'inline-block',
+                                textAlign: 'center',
+                                padding: '10px',
+                                margin: '10px',
+                                border: '1px solid black',
+                                borderRadius: '4px',
+                                width: '200px'
+                            })
+                            .click(function () {
+                                selectCollateral(collateral, $(this));
+                            })
+                            .dblclick(function () {
+                                selectCollateral(collateral, $(this));
+                                onOk();
+                            });
 
-					collateralContainer
-						.append(
-							$('<img>')
-								.attr('src', collateral.files[0].url)
-								.css({
-									width: '100%'
-								})
-						)
-						.append(
-							$('<div>')
-							.css({
-								padding: '20px 0 0 0'
-							})
-							.html(collateral.name)
-						);
-					
-					// Adds collateral container to collaterals container
-					collateralsContainer.append(collateralContainer);
-				});
-			});
+                        collateralContainer
+                            .append(
+                                $('<img>')
+                                    .attr('src', collateral.files[0].url)
+                                    .css({
+                                        width: '100%'
+                                    })
+                            )
+                            .append(
+                                $('<div>')
+                                .css({
+                                    padding: '20px 0 0 0'
+                                })
+                                .html(collateral.name)
+                            );
+
+                        // Adds collateral container to collaterals container
+                        collateralsContainer.append(collateralContainer);
+                    });
+                });
+			}
 		};
 
 		// Load static dialog template
