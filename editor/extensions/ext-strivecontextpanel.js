@@ -62,11 +62,11 @@ svgEditor.addExtension('striveContextPanel', function () {
 		if (selectedElement) {
 			var tagName = selectedElement.tagName;
 			collateralTypes && collateralTypes.forEach(function (field) {
-				if (field.type === tagName) {
+				if (field.type === tagName.toLowerCase()) {
 					fieldElement
 						.append($('<option>')
-							.attr('value', field.value)
-							.html(field.display)
+							.attr('value', field.id)
+							.html(field.label)
 					);
 				}
 			});
@@ -90,9 +90,9 @@ svgEditor.addExtension('striveContextPanel', function () {
 	}
 
 	var loadMeta = function () {
-		if(window.striveGetMetadata) {
+		if(window.striveGetMetaData) {
 		    window.striveGetMetaData().then(function (data) {
-		        collateralTypes = data.results;
+		        collateralTypes = data;
 
                 initializeControls();
 		    });
