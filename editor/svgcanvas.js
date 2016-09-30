@@ -3818,8 +3818,6 @@ this.svgToString = function(elem, indent) {
 				});
 			});
 
-            out.push(' xmlns:xlink="http://www.w3.org/1999/xlink"');
-
 			i = attrs.length;
 			var attr_names = ['width', 'height', 'xmlns', 'x', 'y', 'viewBox', 'id', 'overflow'];
 			while (i--) {
@@ -4084,6 +4082,12 @@ this.exportPDF = function (exportWindowName, outputType) {
 this.getSvgString = function() {
 	save_options.apply = false;
 	return this.svgCanvasToString();
+};
+
+this.getResolvedSvgString = function () {
+  save_options.apply = true;
+  save_options.images = 'embed';
+  return this.svgCanvasToString();
 };
 
 // Function: randomizeIds

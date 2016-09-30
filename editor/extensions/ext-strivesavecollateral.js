@@ -1,7 +1,7 @@
 svgEditor.addExtension('striveSaveCollateral', function () {
 	var saveCollateral = function () {
 	    if (window.striveSaveCallback) {
-	        window.striveSaveCallback(svgCanvas.svgCanvasToString());
+	        window.striveSaveCallback(svgCanvas.getResolvedSvgString());
 	    }
 	};
 

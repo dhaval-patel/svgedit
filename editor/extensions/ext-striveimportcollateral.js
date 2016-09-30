@@ -28,7 +28,7 @@ svgEditor.addExtension('striveImportCollateral', function () {
 			// Fetch collaterals
 			if (window.striveGetCollateral) {
                 window.striveGetCollateral().then(function (data) {
-                    var collaterals = data.results;
+                    var collaterals = data;
 
                     var collateralsContainer = dialog.find('#strive_import_collateral_collaterals_container');
 
@@ -55,7 +55,7 @@ svgEditor.addExtension('striveImportCollateral', function () {
                         collateralContainer
                             .append(
                                 $('<img>')
-                                    .attr('src', collateral.files[0].url)
+                                    .attr('src', collateral.files[0].processed_file)
                                     .css({
                                         width: '100%'
                                     })
@@ -115,7 +115,7 @@ svgEditor.addExtension('striveImportCollateral', function () {
 	var onOk = function () {
 		// Load selected collateral in svg editor
 		if (selectedCollateral) {
-			svgEditor.loadFromURL(selectedCollateral.files[0].url);
+			svgEditor.loadFromURL(selectedCollateral.files[0].file);
 			hideDialog();
 		} else {
 			console.log('Please select a collateral');
