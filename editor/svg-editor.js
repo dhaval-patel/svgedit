@@ -98,6 +98,7 @@ TODOS
 				'ext-star.js',
 				'ext-panning.js',
 				'ext-storage.js',
+				'ext-strive.js',
 				'ext-striveimportcollateral.js',
 				'ext-strivesavecollateral.js',
 				'ext-strivecontextpanel.js',
