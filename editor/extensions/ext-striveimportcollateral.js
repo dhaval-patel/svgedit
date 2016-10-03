@@ -1,6 +1,6 @@
 svgEditor.addExtension('striveImportCollateral', function () {
 	var dialog,
-		templateUrl = svgEditor.curConfig.extPath + 'ext-striveImportCollateral.html',
+		templateUrl = svgEditor.curConfig.extPath + 'ext-striveimportcollateral.html',
 		selectedCollateral,
 		selectedCollateralContainer;
 
