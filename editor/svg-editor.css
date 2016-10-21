@@ -81,7 +81,7 @@ select {
 }
 
 #ruler_corner {
-	top: 41px;
+	top: 81px;
 	left: 41px;
 	width: 15px;
 	height: 15px;
@@ -89,7 +89,7 @@ select {
 
 #ruler_x {
 	height: 15px;
-	top: 41px;
+	top: 81px;
 	left: 56px;
 	right: 30px;
 	border-bottom: 1px solid;
@@ -98,7 +98,7 @@ select {
 
 #ruler_y {
 	width: 15px;
-	top: 55px;
+	top: 95px;
 	left: 41px;
 	bottom: 56px;
 	border-right: 1px solid;
@@ -161,7 +161,7 @@ select {
 #workarea {
 	display: inline-table-cell;
 	position:absolute;
-	top: 40px;
+	top: 80px;
 	left: 40px;
 	bottom: 40px;
 	right: 14px;
@@ -174,7 +174,7 @@ select {
 #sidepanels {
 	display: inline-block;
 	position:absolute;
-	top: 40px;
+	top: 80px;
 	bottom: 40px;
 	right: 0;
 	width: 2px;
@@ -474,7 +474,7 @@ div.palette_item:first-child {
 	box-shadow: inset 1px 1px 2px rgba(0,0,0,0.4), 1px 1px  0 white  !important;
 }
 
-#tools_top {
+#tools_top, #tools_top_strive {
 	position: absolute;
 	left: 108px;
 	right: 2px;
@@ -484,7 +484,12 @@ div.palette_item:first-child {
 	overflow: auto;
 }
 
-#tools_top .tool_sep {
+#tools_top_strive {
+	top: 42px;
+}
+
+
+#tools_top .tool_sep, #tools_top_strive .tool_sep {
 	margin-top: 5px;
 }
 
@@ -492,7 +497,7 @@ div.palette_item:first-child {
 	position: absolute;
 	border-right: none;
 	width: 32px;
-	top: 40px;
+	top: 80px;
 	left: 1px;
 	margin-top: -2px;
 	padding-left: 2px;
@@ -525,7 +530,7 @@ div.palette_item:first-child {
 	display: none;
 }
 
-#editor_panel, #history_panel {
+#editor_panel, #history_panel, #editor_panel_strive {
 	height: 34px;
 	float: left;
 }
@@ -577,7 +582,7 @@ div.toolset label span {
 	display: inline-block;
 }
 
-#tools_top > div > * {
+#tools_top > div > *, #tools_top_strive > div > * {
 	float: left;
 	margin-right: 2px;
 }
@@ -709,9 +714,13 @@ span.zoom_tool {
 	-webkit-border-radius: 3px;
 }
 
- #main_menu li#tool_open,  #main_menu li#tool_import {
+#main_menu li#tool_open,  #main_menu li#tool_import {
 	position: relative;
 	overflow: hidden;
+}
+
+#main_menu li#tool_import, #main_menu li#tool_save, #main_menu li#tool_export {
+	display: none !important;
 }
 
 #tool_image {

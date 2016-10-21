@@ -44,10 +44,10 @@ svgEditor.addExtension('striveContextPanel', function () {
 				minWidth: '135px'
 			})
 			.change(onFieldChange);
-		
-		$('<div id="strive_context_panel" style="display: inline;">')
-			.append(fieldElement)
-			.insertAfter('#history_panel');
+		$('#editor_panel_strive')
+		    .append($('<div id="strive_context_panel" style="display: inline;">')
+                .append(fieldElement)
+		    );
 	};
 
 	var initializeCollateralFieldControl = function () {

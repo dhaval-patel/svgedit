@@ -92,15 +92,15 @@ TODOS
 				'ext-connector.js',
 				'ext-eyedropper.js',
 				'ext-shapes.js',
-				'ext-imagelib.js',
+				//'ext-imagelib.js',
 				'ext-grid.js',
 				'ext-polygon.js',
 				'ext-star.js',
 				'ext-panning.js',
 				'ext-storage.js',
 				'ext-strive.js',
-				'ext-striveimportcollateral.js',
-				'ext-strivesavecollateral.js',
+				//'ext-striveimportcollateral.js',
+				//'ext-strivesavecollateral.js',
 				'ext-strivecontextpanel.js',
 				'ext-striveimagecontextpanel.js',
 				'ext-strivetextcontextpanel.js'
@@ -721,7 +721,9 @@ TODOS
 
 					'.flyout_arrow_horiz': 'arrow_right',
 					'.dropdown button, #main_button .dropdown': 'arrow_down',
-					'#palette .palette_item:first, #fill_bg, #stroke_bg': 'no_color'
+					'#palette .palette_item:first, #fill_bg, #stroke_bg': 'no_color',
+					'#import_callateral': 'import',
+					'#save_collateral': 'save'
 				},
 				resize: {
 					'#logo .svg_icon': 28,
@@ -3897,6 +3899,139 @@ TODOS
 				resetScrollPos();
 			};
 
+			var clickSaveCollateral = function () {
+                if (window.striveSaveCallback) {
+                    window.striveSaveCallback(svgCanvas.getResolvedSvgString());
+                }
+            };
+
+            var clickImportCollateral = function () {
+            	var dialog,
+            		templateUrl = svgEditor.curConfig.extPath + 'ext-striveimportcollateral.html',
+            		selectedCollateral,
+            		selectedCollateralContainer;
+
+            	var createDialog = function () {
+            		dialog = $('<div id="striveImportCollateral">');
+
+            		var onComplete = function () {
+            			// Ok Button
+            			// Event handler binding
+            			// Attach SVG icon
+            			dialog.find('#strive_import_collateral_ok')
+            				.click(onOk)
+            				.prepend($.getSvgIcon('ok', true));
+
+            			// Cancel Button
+            			// Event handler binding
+            			// Attach SVG icon
+            			dialog.find('#strive_import_collateral_cancel')
+            				.click(onCancel)
+            				.prepend($.getSvgIcon('cancel', true));
+
+            			// Add dialog in DOM
+            			dialog.insertAfter('#svg_docprops');
+
+            			// Fetch collaterals
+            			if (window.striveGetCollateral) {
+                            window.striveGetCollateral().then(function (data) {
+                                var collaterals = data;
+
+                                var collateralsContainer = dialog.find('#strive_import_collateral_collaterals_container');
+
+                                collaterals.forEach(function (collateral) {
+                                    // Create collateral container
+                                    var collateralContainer = $('<div>')
+                                        .css({
+                                            display: 'inline-block',
+                                            textAlign: 'center',
+                                            padding: '10px',
+                                            margin: '10px',
+                                            border: '1px solid black',
+                                            borderRadius: '4px',
+                                            width: '200px'
+                                        })
+                                        .click(function () {
+                                            selectCollateral(collateral, $(this));
+                                        })
+                                        .dblclick(function () {
+                                            selectCollateral(collateral, $(this));
+                                            onOk();
+                                        });
+
+                                    collateralContainer
+                                        .append(
+                                            $('<img>')
+                                                .attr('src', collateral.files[0].processed_file)
+                                                .css({
+                                                    width: '100%'
+                                                })
+                                        )
+                                        .append(
+                                            $('<div>')
+                                            .css({
+                                                padding: '20px 0 0 0'
+                                            })
+                                            .html(collateral.name)
+                                        );
+
+                                    // Adds collateral container to collaterals container
+                                    collateralsContainer.append(collateralContainer);
+                                });
+                            });
+            			}
+            		};
+
+            		// Load static dialog template
+            		dialog.load(templateUrl, onComplete);
+            	};
+
+            	var selectCollateral = function (collateral, collateralContainer) {
+            		selectedCollateral = collateral;
+
+            		// Reset UI of existing selected collateral if any
+            		if (selectedCollateralContainer) {
+            			selectedCollateralContainer.css({
+            				background: 'transparent'
+            			});
+            		}
+
+            		selectedCollateralContainer = collateralContainer;
+            		selectedCollateralContainer.css({
+            			backgroundColor: '#B0B0B0'
+            		});
+            	}
+
+            	var showDialog = function () {
+            		// Create dialog first if not created already.
+            		if (!dialog) {
+            			createDialog();
+            		}
+
+            		dialog.show();
+            	};
+
+            	var hideDialog = function () {
+            		dialog.hide();
+            	};
+
+            	var onCancel = function () {
+            		hideDialog();
+            	};
+
+            	var onOk = function () {
+            		// Load selected collateral in svg editor
+            		if (selectedCollateral) {
+            			svgEditor.loadFromURL(selectedCollateral.files[0].file);
+            			hideDialog();
+            		} else {
+            			console.log('Please select a collateral');
+            		}
+            	};
+
+            	showDialog();
+            }
+
 			var win_wh = {width:$(window).width(), height:$(window).height()};
 
 			// Fix for Issue 781: Drawing area jumps to top-left corner on window resize (IE9)
@@ -4534,6 +4669,8 @@ TODOS
 					{sel: '#tool_italic', fn: clickItalic, evt: 'mousedown'},
 					{sel: '#sidepanel_handle', fn: toggleSidePanel, key: ['X']},
 					{sel: '#copy_save_done', fn: cancelOverlays, evt: 'click'},
+					{sel: '#import_callateral', fn: clickImportCollateral, evt: 'click'},
+					{sel: '#save_collateral', fn: clickSaveCollateral, evt: 'click'},
 
 					// Shortcuts not associated with buttons
 
