@@ -122,7 +122,7 @@ TODOS
 				text: {
 					stroke_width: 0,
 					font_size: 24,
-					font_family: 'serif',
+					font_family: 'Aero Matics',
 					text_anchor: 'first'
 				},
 				initOpacity: 1,
